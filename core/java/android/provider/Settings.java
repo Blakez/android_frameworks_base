@@ -1845,6 +1845,13 @@ public final class Settings {
         public static final int VOLUME_OVERLAY_NONE = 3;
 
         /**
+         * Volume Adjust Sounds Enable, This is the noise made when using volume hard buttons
+         * Defaults to 1 - sounds enabled
+         * @hide
+         */
+        public static final String VOLUME_ADJUST_SOUNDS_ENABLED = "volume_adjust_sounds_enabled";
+
+        /**
          * Determines which streams are affected by ringer mode changes. The
          * stream type's bit should be set to 1 if it should be muted when going
          * into an inaudible ringer mode.
@@ -2745,6 +2752,18 @@ public final class Settings {
          * @hide
          */
         public static final String EXPANDED_DESKTOP_STATE = "expanded_desktop_state";
+		
+       /**
+	* Restart Launcher
+	* @hide
+	*/
+        public static final String EXPANDED_DESKTOP_RESTART_LAUNCHER = "expanded_desktop_restart_launcher";
+
+       /**
+        * Override and forcefully disable the fullscreen keyboard
+        * @hide
+        */
+        public static final String DISABLE_FULLSCREEN_KEYBOARD = "disable_fullscreen_keyboard";
 
         /**
          * Expanded desktop style (with status bar or without status bar)
@@ -2865,12 +2884,6 @@ public final class Settings {
          */
         public static final String STATUS_ICON_COLOR = "status_icon_color";
 
-		/**
-         * Restart Launcher
-         * @hide
-         */
-        public static final String EXPANDED_DESKTOP_RESTART_LAUNCHER = "expanded_desktop_restart_launcher";
-
         /**
          * Pie menu, should default to 1 (yes, show)
          * @hide
@@ -2894,12 +2907,6 @@ public final class Settings {
          * @hide
          */
         public static final String PIE_SEARCH = "pie_search";
-
- 		/**
-		 * Pie last app, should default to 0 (no, show only when needed)
-	     * @hide
-	     */	
-		public static final String PIE_LAST_APP = "pie_last_app";
 
         /**
          * Pie gap angle, should default to 3
@@ -3536,12 +3543,6 @@ public final class Settings {
          * Option To Colorize ALL Nav Icons
          */
         public static final String NAVIGATION_BAR_ALLCOLOR = "navigation_bar_allcolor";
-
-        /**	
-         * Circle battery, default = 0, standard android battery
-         * @hide
-         */
-        public static final String STATUS_BAR_CIRCLE_BATTERY = "status_bar_circle_battery";
 
         /**
          * @hide
