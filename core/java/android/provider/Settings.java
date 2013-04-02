@@ -2623,13 +2623,6 @@ public final class Settings {
         public static final String QS_COLLAPSE_PANEL = "qs_collapse_panel";
 
         /**
-         * Quick Settings Disable Panel
-         *
-         * @hide
-         */
-        public static final String QS_DISABLE_PANEL = "qs_disable_panel";
-
-        /**
          * Use the Notification Power Widget? (Who wouldn't!)
          *
          * @hide

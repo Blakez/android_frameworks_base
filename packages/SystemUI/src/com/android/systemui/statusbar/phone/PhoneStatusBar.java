@@ -230,7 +230,7 @@ public class PhoneStatusBar extends BaseStatusBar {
 
     // settings
     QuickSettingsController mQS;
-    boolean mHasSettingsPanel, mHideSettingsPanel, mHasFlipSettings;
+    boolean mHasSettingsPanel, mHasFlipSettings;
     SettingsPanelView mSettingsPanel;
     View mFlipSettingsView;
     QuickSettingsContainerView mSettingsContainer;
@@ -564,14 +564,7 @@ public class PhoneStatusBar extends BaseStatusBar {
         mClearButton.setEnabled(false);
         mDateView = (DateView)mStatusBarWindow.findViewById(R.id.date);
 
-        if (mStatusBarView.hasFullWidthNotifications()) {
-            mHideSettingsPanel = Settings.System.getInt(mContext.getContentResolver(),
-                                    Settings.System.QS_DISABLE_PANEL, 0) == 1;
-            mHasSettingsPanel = res.getBoolean(R.bool.config_hasSettingsPanel) && !mHideSettingsPanel;
-        } else {
-            mHideSettingsPanel = false;
-            mHasSettingsPanel = res.getBoolean(R.bool.config_hasSettingsPanel);
-        }
+        mHasSettingsPanel = res.getBoolean(R.bool.config_hasSettingsPanel);
         mHasFlipSettings = res.getBoolean(R.bool.config_hasFlipSettingsPanel);
 
         mDateTimeView = mNotificationPanelHeader.findViewById(R.id.datetime);
@@ -789,10 +782,6 @@ public class PhoneStatusBar extends BaseStatusBar {
                 mQS = null; // fly away, be free
             }
         }
-
-        // Start observing for changes on QuickSettings (needed here for enable/hide qs)
-        mTilesChangedObserver = new TilesChangedObserver(mHandler);
-        mTilesChangedObserver.startObserving();
 
         mClingShown = ! (DEBUG_CLINGS
             || !Prefs.read(mContext).getBoolean(Prefs.SHOWN_QUICK_SETTINGS_HELP, false));
@@ -3100,11 +3089,14 @@ public class PhoneStatusBar extends BaseStatusBar {
                 recreateStatusBar();
             }
 
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
             if (mSettingsContainer != null) {
                 // Refresh the container
                 mSettingsContainer.removeAllViews();
                 mQS.setupQuickSettings();
                 mSettingsContainer.updateResources();
+                setNotificationWallpaperHelper();
             }
         }
 
