@@ -177,6 +177,21 @@ public class NotificationPanelView extends PanelView {
                     } else if (!mStatusBar.hasClearableNotifications() && noNotificationPulldown) {
                         flip = true;
                     }
+                    if (mFastTogglePos == 1) {
+                        if ((event.getX(0) > getWidth()
+                                * (1.0f - STATUS_BAR_SETTINGS_RIGHT_PERCENTAGE)
+                                && mFastToggleEnabled)
+                                && !mFastToggleEnabled) {
+                        flip = true;
+                        }
+                    } else if (mFastTogglePos == 2) {
+                        if ((event.getX(0) < getWidth()
+                                * (1.0f - STATUS_BAR_SETTINGS_LEFT_PERCENTAGE)
+                                && mFastToggleEnabled)
+                                && !mFastToggleEnabled) {
+                        flip = true;
+                        }
+                    }
                     break;
                 
                 case MotionEvent.ACTION_MOVE:
@@ -268,6 +283,8 @@ public class NotificationPanelView extends PanelView {
                     original.getPressure(0), original.getSize(0), original.getMetaState(),
                     original.getXPrecision(), original.getYPrecision(), original.getDeviceId(),
                     original.getEdgeFlags());
+                shouldRecycleEvent = true;
+            }
 
                 // The following two lines looks better than the chunk of code above, but,
                 // nevertheless, doesn't work. The view is not pinned down, and may close,
@@ -277,8 +294,7 @@ public class NotificationPanelView extends PanelView {
                 // event.setLocation(getWidth()/2, getHeight());
                 shouldRecycleEvent = true;
             }
-            
-		}
+
         final boolean result = mHandleView.dispatchTouchEvent(event);
         if (shouldRecycleEvent) {
             event.recycle();
