@@ -1888,7 +1888,9 @@ public class PhoneStatusBar extends BaseStatusBar {
                     Settings.System.getInt(cr,
                          Settings.System.RIBBON_ICON_SPACE[AokpRibbonHelper.QUICK_SETTINGS], 5),
                     Settings.System.getBoolean(cr,
-                         Settings.System.RIBBON_ICON_VIBRATE[AokpRibbonHelper.QUICK_SETTINGS], true)));
+                         Settings.System.RIBBON_ICON_VIBRATE[AokpRibbonHelper.QUICK_SETTINGS], true),
+                    Settings.System.getBoolean(cr,
+                         Settings.System.RIBBON_ICON_COLORIZE[AokpRibbonHelper.QUICK_SETTINGS], false)));
             }
             mRibbonNotif.removeAllViews();
             mRibbonNotif.addView(AokpRibbonHelper.getRibbon(mContext,
@@ -1907,7 +1909,9 @@ public class PhoneStatusBar extends BaseStatusBar {
                 Settings.System.getInt(cr,
                      Settings.System.RIBBON_ICON_SPACE[AokpRibbonHelper.NOTIFICATIONS], 5),
                 Settings.System.getBoolean(cr,
-                     Settings.System.RIBBON_ICON_VIBRATE[AokpRibbonHelper.NOTIFICATIONS], true)));
+                     Settings.System.RIBBON_ICON_VIBRATE[AokpRibbonHelper.NOTIFICATIONS], true),
+                Settings.System.getBoolean(cr,
+                     Settings.System.RIBBON_ICON_COLORIZE[AokpRibbonHelper.NOTIFICATIONS], false)));
     }
 
     public void updateRibbon() {
@@ -3240,6 +3244,8 @@ public class PhoneStatusBar extends BaseStatusBar {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RIBBON_TEXT_COLOR[AokpRibbonHelper.NOTIFICATIONS]), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.RIBBON_ICON_COLORIZE[AokpRibbonHelper.NOTIFICATIONS]), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RIBBON_ICON_SIZE[AokpRibbonHelper.NOTIFICATIONS]), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RIBBON_ICON_SPACE[AokpRibbonHelper.NOTIFICATIONS]), false, this);
@@ -3259,6 +3265,8 @@ public class PhoneStatusBar extends BaseStatusBar {
                     Settings.System.RIBBON_ICON_SPACE[AokpRibbonHelper.QUICK_SETTINGS]), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RIBBON_ICON_VIBRATE[AokpRibbonHelper.QUICK_SETTINGS]), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.RIBBON_ICON_COLORIZE[AokpRibbonHelper.QUICK_SETTINGS]), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RIBBON_TEXT_COLOR[AokpRibbonHelper.QUICK_SETTINGS]), false, this);
             update();
