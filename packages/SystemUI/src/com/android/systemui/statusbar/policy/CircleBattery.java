@@ -59,6 +59,7 @@ public class CircleBattery extends ImageView {
     // state variables
     private boolean mAttached;      // whether or not attached to a window
     private boolean mActivated;     // whether or not activated due to system settings
+    private boolean mPercentage;    // whether or not to show percentage number
     private boolean mIsCharging;    // whether or not device is currently charging
     private int     mLevel;         // current battery level
     private int     mAnimOffset;    // current level of charging animation
@@ -112,6 +113,7 @@ public class CircleBattery extends ImageView {
                     Settings.System.STATUS_BAR_CIRCLE_BATTERY, 0));
 
             mActivated = (batteryStyle == 1);
+            mPercentage = true;
 
             setVisibility(mActivated ? View.VISIBLE : View.GONE);
             if (mBatteryReceiver != null) {
@@ -257,7 +259,6 @@ public class CircleBattery extends ImageView {
             }
             mLastIconColor = colorInfo;
         }
-        invalidate();
     }
 
     @Override
@@ -312,9 +313,9 @@ public class CircleBattery extends ImageView {
         canvas.drawArc(drawRect, 270, 360, false, mPaintGray);
         // draw colored arc representing charge level
         canvas.drawArc(drawRect, 270 + animOffset, 3.6f * padLevel, false, usePaint);
-        // draw percentage text in the middle
+        // if chosen by options, draw percentage text in the middle
         // always skip percentage when 100, so layout doesnt break
-        if (level < 100) {
+        if (level < 100 && mPercentage) {
             mPaintFont.setColor(usePaint.getColor());
             canvas.drawText(Integer.toString(level), textX, mTextY, mPaintFont);
         }
