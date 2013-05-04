@@ -191,7 +191,6 @@ public class NotificationPanelView extends PanelView {
                         }
                     }
                     break;
-                
                 case MotionEvent.ACTION_MOVE:
                     final float deltaX = Math.abs(event.getX(0) - mGestureStartX);
                     final float deltaY = Math.abs(event.getY(0) - mGestureStartY);
@@ -224,11 +223,9 @@ public class NotificationPanelView extends PanelView {
                         swipeFlipJustStarted = true;
                     }
                     break;
-
                 case MotionEvent.ACTION_POINTER_DOWN:
                     flip = true;
                     break;
-                    
                 case MotionEvent.ACTION_UP:
                     swipeFlipJustFinished = mSwipeTriggered;
                     mSwipeTriggered = false;
@@ -244,8 +241,8 @@ public class NotificationPanelView extends PanelView {
                     if (y > maxy) maxy = y;
                 }
                 if (maxy - miny < mHandleBarHeight) {
-                     if (getMeasuredHeight() < mHandleBarHeight) {
-                         mStatusBar.switchToSettings();
+                    if (getMeasuredHeight() < mHandleBarHeight) {
+                        mStatusBar.switchToSettings();
                 } else {
                         // Do not flip if the drag event started within the top bar
                         if (MotionEvent.ACTION_DOWN == event.getActionMasked() && event.getY(0) < mHandleBarHeight ) {

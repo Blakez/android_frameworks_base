@@ -693,7 +693,7 @@ public class PhoneStatusBar extends BaseStatusBar {
                     updateCarrierAndWifiLabelVisibility(false);
                 }});
         }
-        
+
         mNotificationShortcutsHideCarrier = Settings.System.getIntForUser(mContext.getContentResolver(),
                     Settings.System.NOTIFICATION_SHORTCUTS_HIDE_CARRIER, 0, UserHandle.USER_CURRENT) != 0;
 
@@ -707,7 +707,6 @@ public class PhoneStatusBar extends BaseStatusBar {
             mCarrierLabel.setVisibility((mCarrierAndWifiViewVisible && !mNotificationShortcutsHideCarrier) ? View.VISIBLE : View.INVISIBLE);
             if (mNotificationShortcutsHideCarrier)
                 mShowCarrierInPanel = false;
-
             // for mobile devices, we always show mobile connection info here (SPN/PLMN)
             // for other devices, we show whatever network is connected
             if (mNetworkController.hasMobileDataFeature()) {
@@ -748,7 +747,6 @@ public class PhoneStatusBar extends BaseStatusBar {
                 @Override
                 public void onSizeChanged(View view, int w, int h, int oldw, int oldh) {
                     updateCarrierAndWifiLabelVisibility(false);
-	            updateRibbonTargets();
                 }
             });
         }
@@ -808,7 +806,7 @@ public class PhoneStatusBar extends BaseStatusBar {
         if (!ENABLE_NOTIFICATION_PANEL_CLING || ActivityManager.isRunningInTestHarness()) {
             mClingShown = true;
         }
-        
+
         // Notification Shortcuts
         mNotificationShortcutsLayout = (ShortcutsWidget)mStatusBarWindow.findViewById(R.id.custom_notificiation_shortcuts);
         mNotificationShortcutsLayout.setGlobalButtonOnClickListener(new View.OnClickListener() {
@@ -1131,7 +1129,6 @@ public class PhoneStatusBar extends BaseStatusBar {
             mHandler.postDelayed(delayHide,mAutoHideTimeOut);
         }
     }
-
 
     private void prepareNavigationBarView() {
         mNavigationBarView.reorient();
@@ -1904,10 +1901,10 @@ public class PhoneStatusBar extends BaseStatusBar {
         if (mSettingsButtonAnim != null) mSettingsButtonAnim.cancel();
         if (mNotificationButtonAnim != null) mNotificationButtonAnim.cancel();
         if (mClearButtonAnim != null) mClearButtonAnim.cancel();
-        
+
         final boolean halfWayDone = mScrollView.getVisibility() == View.VISIBLE;
         final int zeroOutDelays = halfWayDone ? 0 : 1;
-        
+
         if (!halfWayDone) {
             mScrollView.setScaleX(0f);
             mFlipSettingsView.setScaleX(1f);
@@ -1961,13 +1958,12 @@ public class PhoneStatusBar extends BaseStatusBar {
         mClearButton.setAlpha(0f);
         setAreThereNotifications(); // this will show/hide the button as necessary
         mNotificationPanel.postDelayed(new Runnable() {
-            @Override
             public void run() {
                 updateCarrierAndWifiLabelVisibility(false);
             }
         }, FLIP_DURATION - 150);
         updateRibbon(false);
-        
+
         if (mNotificationShortcutsToggle)
             updateNotificationShortcutsVisibility(true);
     }
@@ -3196,7 +3192,7 @@ public class PhoneStatusBar extends BaseStatusBar {
     void postStartTracing() {
         mHandler.postDelayed(mStartTracing, 3000);
     }
-    
+
     void customButtonVibrate() {
         final boolean hapticsDisabled = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.HAPTIC_FEEDBACK_ENABLED, 0) == 0;
@@ -3217,7 +3213,6 @@ public class PhoneStatusBar extends BaseStatusBar {
     }
 
     Runnable mStartTracing = new Runnable() {
-
         public void run() {
             vibrate();
             SystemClock.sleep(250);
@@ -3407,13 +3402,13 @@ public class PhoneStatusBar extends BaseStatusBar {
                     Settings.System.RIBBON_ICON_COLORIZE[AokpRibbonHelper.QUICK_SETTINGS]), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.RIBBON_TEXT_COLOR[AokpRibbonHelper.QUICK_SETTINGS]), false, this);
-            update();
         }
 
         @Override
         public void onChange(boolean selfChange) {
             update();
             updateSettings();
+            recreateStatusBar();
         }
 
         public void update() {
